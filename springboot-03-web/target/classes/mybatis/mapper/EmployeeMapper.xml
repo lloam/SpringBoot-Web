@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace=绑定一个对应的Dao/Mapper接口-->
+<mapper namespace="com.mao.mapper.EmployeeMapper">
+
+    <insert id="save" parameterType="employee">
+        insert into employee(last_name,email,gender,departmentId,birth)
+                values (#{lastName},#{email},#{gender},#{department.id},#{birth})
+    </insert>
+
+    <select id="getAllEmployee" resultMap="employees">
+        select e.id eid,last_name,email,gender,d.id did,departmentName,birth from employee e,department d where e.departmentId = d.id
+    </select>
+    <resultMap id="employees" type="employee">
+        <result property="id" column="eid"/>
+        <result property="lastName" column="last_name"/>
+        <result property="email" column="email"/>
+        <result property="gender" column="gender"/>
+        <result property="birth" column="birth"/>
+        <association property="department" javaType="department">
+            <result property="id" column="did"/>
+            <result property="departmentName" column="departmentName"/>
+        </association>
+    </resultMap>
+
+    <select id="getEmployeeById" resultMap="employee">
+        select e.id eid,last_name,email,gender,d.id did,departmentName,birth
+        from employee e,department d where e.id = #{id} and e.departmentId = d.id
+    </select>
+    <resultMap id="employee" type="employee">
+        <result property="id" column="eid"/>
+        <result property="lastName" column="last_name"/>
+        <result property="email" column="email"/>
+        <result property="gender" column="gender"/>
+        <result property="birth" column="birth"/>
+        <association property="department" javaType="department">
+            <result property="id" column="did"/>
+            <result property="departmentName" column="departmentName"/>
+        </association>
+    </resultMap>
+    <delete id="delete">
+        delete from employee where id = #{id}
+    </delete>
+
+    <update id="updateEmployee" parameterType="employee">
+        update employee set last_name = #{lastName},email = #{email},gender = #{gender},departmentId = #{department.id},birth = #{birth} where id = #{id}
+    </update>
+
+
+</mapper>

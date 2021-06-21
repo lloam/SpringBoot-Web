@@ -1,0 +1,58 @@
+spring:
+  profiles:
+    active: dev
+
+
+---
+spring:
+  mvc:
+    date-format: yyyy-MM-dd
+  ## 配置文件的真实位置，在i18n下的login的properties下
+  messages:
+    basename: i18n.login
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://60.205.206.201:3306/mybatis?serverTimezone=UTC&useUnicode=true&chacterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  profiles: pro
+server:
+  servlet:
+    context-path: /mao
+  port: 8001
+
+
+## 整合mybatis
+mybatis:
+  type-aliases-package: com.mao.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+---
+spring:
+  mvc:
+    date-format: yyyy-MM-dd
+  ## 配置文件的真实位置，在i18n下的login的properties下
+  messages:
+    basename: i18n.login
+  datasource:
+    username: root
+    password: 123456
+    url: jdbc:mysql://60.205.206.201:3306/mybatis?serverTimezone=UTC&useUnicode=true&chacterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  profiles: dev
+server:
+  servlet:
+    context-path: /mao
+  port: 9000
+
+
+## 整合mybatis
+mybatis:
+  type-aliases-package: com.mao.pojo
+  mapper-locations: classpath:mybatis/mapper/*.xml
+  configuration:
+    map-underscore-to-camel-case: true
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
