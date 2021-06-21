@@ -19,6 +19,7 @@ public class MyLocaleResolver implements LocaleResolver {
         if(!StringUtils.isEmpty(language)){
             //判断是否为空，如果不为空
             String[] split = language.split("_");
+            // 这里构造函数要加上语言和国家，否则项目本地运行有国际化，但是在项目打包部署到服务器上的时候没有国际化
             locale = new Locale(split[0],split[1]);
         }
 
